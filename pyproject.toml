@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "deepeval-azure-llm-testing"
+version = "1.0.0"
+description = "Production-friendly DeepEval examples for Azure OpenAI, RAG, and agents"
+readme = "README.md"
+requires-python = ">=3.10,<3.14"
+license = { text = "MIT" }
+authors = [{ name = "Ashok Kumar Manohar" }]
+keywords = ["deepeval", "llm-evaluation", "azure-openai", "rag", "agents", "pytest"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+  "deepeval==4.1.7",
+  "openai>=2.0.0,<3.0.0",
+  "python-dotenv>=1.1.0,<2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0,<10.0.0",
+  "pytest-cov>=6.0.0,<8.0.0",
+  "ruff>=0.12.0,<1.0.0",
+]
+
+[project.urls]
+Repository = "https://github.com/ashokmanohar-ai/deepeval-llm-testing"
+Documentation = "https://github.com/ashokmanohar-ai/deepeval-llm-testing#readme"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/deepeval_llm_testing"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = [
+  "--strict-markers",
+  "--strict-config",
+  "--ignore=tests/expected_failures",
+  "-ra",
+]
+markers = [
+  "azure: invokes Azure OpenAI and incurs latency/cost",
+  "deterministic: does not invoke an LLM judge",
+]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["src", "tests", "examples", "scripts"]
+extend-exclude = ["pip-build-env-*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"examples/*.py" = ["E402"]
+"tests/*.py" = ["S105", "S106"]

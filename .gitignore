@@ -1,0 +1,29 @@
+# Credentials and local environment files
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# Test, coverage, and DeepEval runtime data
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.deepeval/
+.deepeval-cache.json
+.deepeval_test_run/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+

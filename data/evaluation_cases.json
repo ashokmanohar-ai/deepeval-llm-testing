@@ -1,0 +1,121 @@
+[
+  {
+    "id": "relevant-correct-001",
+    "category": "correct_and_relevant",
+    "input": "What is Azure OpenAI Service?",
+    "actual_output": "Azure OpenAI Service provides access to OpenAI models through Azure, with Azure resource management, security, and enterprise integration.",
+    "expected_output": "A Microsoft Azure service that provides access to OpenAI models with Azure controls.",
+    "context": [
+      "Azure OpenAI Service makes OpenAI models available through Microsoft Azure and supports Azure security and resource-management capabilities."
+    ],
+    "should_pass": true,
+    "notes": "A concise answer that directly addresses the question."
+  },
+  {
+    "id": "irrelevant-001",
+    "category": "irrelevant_answer",
+    "input": "What is Azure OpenAI Service?",
+    "actual_output": "The Pacific Ocean is the largest ocean on Earth and contains many island groups.",
+    "expected_output": "A Microsoft Azure service that provides access to OpenAI models.",
+    "should_pass": false,
+    "notes": "Fluent but unrelated; should fail answer relevancy."
+  },
+  {
+    "id": "partial-001",
+    "category": "partially_correct",
+    "input": "List the return requirements for unopened electronics.",
+    "actual_output": "They may be returned within 30 days.",
+    "expected_output": "Unopened electronics may be returned within 30 days with a receipt or order number; refunds use the original payment method.",
+    "context": [
+      "Unopened electronics can be returned within 30 days with a receipt or order number. Refunds go to the original payment method."
+    ],
+    "should_pass": false,
+    "notes": "Correct but incomplete; useful for completeness-oriented G-Eval."
+  },
+  {
+    "id": "hallucinated-001",
+    "category": "hallucinated_answer",
+    "input": "What is the support plan?",
+    "actual_output": "Support is available 24/7 by phone and includes a guaranteed 15-minute response.",
+    "context": [
+      "Support is available Monday through Friday, 09:00 to 17:00 UTC, by email."
+    ],
+    "should_pass": false,
+    "notes": "Contradicts every important ground-truth support detail."
+  },
+  {
+    "id": "rag-faithful-001",
+    "category": "faithful_rag_answer",
+    "input": "What is the company's refund policy?",
+    "actual_output": "Unopened electronics may be returned within 30 days of delivery when the customer provides a receipt or order number.",
+    "expected_output": "Unopened electronics can be returned within 30 days with proof of purchase.",
+    "retrieval_context": [
+      "Unopened electronics can be returned within 30 calendar days of delivery. A receipt or order number is required."
+    ],
+    "should_pass": true,
+    "notes": "Every claim is supported by what the retriever returned."
+  },
+  {
+    "id": "rag-unfaithful-001",
+    "category": "unfaithful_rag_answer",
+    "input": "What is the company's refund policy?",
+    "actual_output": "All products may be returned within 90 days without proof of purchase, and refunds are paid in cash.",
+    "expected_output": "Unopened electronics can be returned within 30 days with proof of purchase.",
+    "retrieval_context": [
+      "Unopened electronics can be returned within 30 calendar days of delivery. A receipt or order number is required. Refunds go to the original payment method."
+    ],
+    "should_pass": false,
+    "notes": "The answer conflicts with the actual retrieval context."
+  },
+  {
+    "id": "professional-001",
+    "category": "high_quality_professional",
+    "input": "My unopened headset arrived 10 days ago. Can I return it?",
+    "actual_output": "Yes. Your unopened headset is within the 30-day return window. Submit the return with your receipt or order number; the refund will be sent to the original payment method.",
+    "expected_output": "Confirm eligibility and explain the proof-of-purchase and refund-method requirements.",
+    "context": [
+      "Unopened electronics can be returned within 30 days with a receipt or order number. Refunds go to the original payment method."
+    ],
+    "should_pass": true,
+    "notes": "Direct, complete, professional, and actionable."
+  },
+  {
+    "id": "poor-writing-001",
+    "category": "poorly_written",
+    "input": "My unopened headset arrived 10 days ago. Can I return it?",
+    "actual_output": "yeah probably return stuff is like usually fine maybe ask somebody",
+    "expected_output": "Confirm eligibility and explain the proof-of-purchase and refund-method requirements.",
+    "context": [
+      "Unopened electronics can be returned within 30 days with a receipt or order number. Refunds go to the original payment method."
+    ],
+    "should_pass": false,
+    "notes": "Vague, incomplete, and unprofessional."
+  },
+  {
+    "id": "agent-success-001",
+    "category": "successful_agent_task",
+    "input": "Check whether I can return an unopened electronic item delivered 10 days ago.",
+    "actual_output": "The item is eligible under the 30-day policy. Provide a receipt or order number; the refund goes to the original payment method.",
+    "expected_output": "Confirm the return is eligible and state the proof-of-purchase and refund-method rules.",
+    "context": [
+      "Unopened electronics can be returned within 30 days with a receipt or order number. Refunds go to the original payment method."
+    ],
+    "expected_tool": "knowledge_base_search",
+    "should_pass": true,
+    "notes": "Correct tool, grounded result, and completed task."
+  },
+  {
+    "id": "agent-failure-001",
+    "category": "failed_agent_task",
+    "input": "Check whether I can return an unopened electronic item delivered 10 days ago.",
+    "actual_output": "A public blog says everything can be returned for 90 days without a receipt.",
+    "expected_output": "Use the internal policy and explain the actual eligibility requirements.",
+    "context": [
+      "Unopened electronics can be returned within 30 days with a receipt or order number. Refunds go to the original payment method."
+    ],
+    "expected_tool": "knowledge_base_search",
+    "should_pass": false,
+    "notes": "Wrong tool, unsupported information, and failed task."
+  }
+]
+
