@@ -22,7 +22,7 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-  "deepeval==4.1.7",
+  "deepeval==4.1.8",
   "openai>=2.0.0,<3.0.0",
   "python-dotenv>=1.1.0,<2.0.0",
 ]
