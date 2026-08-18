@@ -1,5 +1,5 @@
 # Runtime and evaluation dependencies. Keep aligned with pyproject.toml.
 deepeval==4.1.7
-openai>=2.0.0,<3.0.0
+openai>=2.0.0,<4.0.0
 python-dotenv>=1.1.0,<2.0.0
 
